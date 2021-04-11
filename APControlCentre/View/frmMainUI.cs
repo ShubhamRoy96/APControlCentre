@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO.Ports;
 using System.Linq;
 using System.Resources;
 using System.Text;
@@ -14,11 +15,31 @@ namespace APControlCentre
 {
     public partial class frmMain : Form
     {
+        bool isConnected = false;
+        String[] ports;
+        SerialPort port;
+        public string gRED = string.Empty;
+        public string gGREEN = string.Empty;
+        public string gBLUE = string.Empty;
+        OpenHardwareMonitor.Hardware.Computer thisComputer = new OpenHardwareMonitor.Hardware.Computer() { };
+
         public frmMain()
         {
             InitializeComponent();
             SunscribeEvents();
             ChangeUIPage(lblDashboard, lblDashboard);
+            //StartTelemetry();
+            //disableControls();
+            //getAvailableComPorts();
+            //foreach (string port in ports)
+            //{
+            //    cmboPorts.Items.Add(port);
+            //    Console.WriteLine(port);
+            //    if (ports[0] != null)
+            //    {
+            //        cmboPorts.SelectedItem = ports[0];
+            //    }
+            //}
         }
 
         private void SunscribeEvents()
@@ -38,11 +59,12 @@ namespace APControlCentre
         {
             try
             {
-                oldPage.BackColor = Color.FromArgb(9, 132, 227);
-
+                oldPage.BackColor = ClsCommon.gobjclsVariables.gcolUIDark;
+                oldPage.ForeColor = ClsCommon.gobjclsVariables.gcolUILight;
                 oldPage.Font = new Font("Overpass", 10, FontStyle.Regular, GraphicsUnit.Point);
 
-                newPage.BackColor = Color.FromArgb(116, 185, 255);
+                newPage.BackColor = ClsCommon.gobjclsVariables.gcolUILight;
+                newPage.ForeColor = Color.Black;
                 newPage.Font = new Font("Overpass ExtraBold", 12, FontStyle.Regular, GraphicsUnit.Point);
 
                 ClsCommon.gobjclsVariables.CurrentPage = newPage;
@@ -62,10 +84,9 @@ namespace APControlCentre
 
 
                             // Retrieve the image.
-                            Bitmap image = (Bitmap)APControlCentre.Properties.Resources.ResourceManager.GetObject("ico" + oldsubName + "_small");
+                            Bitmap image = (Bitmap)APControlCentre.Properties.Resources.ResourceManager.GetObject("ico" + oldsubName + "_small_Alt");
                             if (image != null)
                                 pctBox.Image = image;
-                            //pctBox.Size = new Size(pctBox.Size.Height - 10, pctBox.Size.Width - 10);
 
 
                         }
@@ -76,17 +97,17 @@ namespace APControlCentre
                             Bitmap image = (Bitmap)APControlCentre.Properties.Resources.ResourceManager.GetObject("ico" + newSubname + "");
                             if (image != null)
                                 pctBox.Image = image;
-                            //pctBox.Size = new Size(pctBox.Size.Height + 10, pctBox.Size.Width + 10);
                         }
                     }
                 }
 
                 int moveLimit = 12;
-                for (int i = 1; i <= moveLimit; ++i)
+                int startLocation = newPage.Padding.Right;
+                for (int i = startLocation; i <= moveLimit; ++i)
                 {
                     newPage.Padding = new Padding(0, 0, i, 0);
                     if (oldPage != newPage)
-                        oldPage.Padding = new Padding(0, 0, moveLimit - i, 0);
+                        oldPage.Padding = new Padding(0, 0, moveLimit - i + startLocation, 0);
                     await Task.Delay(1);
                 }
             }
@@ -143,12 +164,12 @@ namespace APControlCentre
         {
             try
             {
-                pnlNav.BackColor = Color.FromArgb(9, 132, 227); //Dark
-                this.BackColor = Color.FromArgb(116, 185, 255); //Light
-                lblDashboard.BackColor = Color.FromArgb(116, 185, 255);
-                pctDashboard.BackColor = Color.FromArgb(116, 185, 255);
-                btnMinimise.BackColor = Color.FromArgb(116, 185, 255);
-                btnExit.BackColor = Color.FromArgb(116, 185, 255);
+                pnlNav.BackColor = ClsCommon.gobjclsVariables.gcolUIDark; //Dark
+                this.BackColor = ClsCommon.gobjclsVariables.gcolUILight; //Light
+                lblDashboard.BackColor = ClsCommon.gobjclsVariables.gcolUILight;
+                pctDashboard.BackColor = ClsCommon.gobjclsVariables.gcolUILight;
+                btnMinimise.BackColor = ClsCommon.gobjclsVariables.gcolUILight;
+                btnExit.BackColor = ClsCommon.gobjclsVariables.gcolUILight;
             }
             catch (Exception)
             {
@@ -176,7 +197,7 @@ namespace APControlCentre
             try
             {
 
-                btnExit.BackColor = Color.FromArgb(116, 185, 255);
+                btnExit.BackColor = ClsCommon.gobjclsVariables.gcolUILight;
             }
             catch (Exception)
             {

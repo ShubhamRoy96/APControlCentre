@@ -42,6 +42,10 @@
     <Reference Include="LiveCharts.Wpf, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
       <HintPath>..\packages\LiveCharts.Wpf.0.9.7\lib\net45\LiveCharts.Wpf.dll</HintPath>
     </Reference>
+    <Reference Include="OpenHardwareMonitorLib, Version=0.9.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Config\OpenHardwareMonitorLib.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -61,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\clsController.cs" />
+    <Compile Include="Model\clsConstants.cs" />
     <Compile Include="View\frmMainUI.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -113,7 +118,11 @@
     <None Include="Resources\icoAbout_small.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\icoSettings_small_Alt.png" />
+    <None Include="Resources\icoAbout_small_Alt.png" />
+    <Content Include="Config\OpenHardwareMonitorLib.dll" />
     <Content Include="Resources\icoDashboardAlt.png" />
+    <None Include="Resources\icoDashboard_small_Alt.png" />
     <Content Include="Resources\icoInfoAlt.png" />
     <Content Include="Resources\icoSettings_small.png" />
   </ItemGroup>

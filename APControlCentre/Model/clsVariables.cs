@@ -19,5 +19,11 @@ namespace APControlCentre.Model
             SETTINGS,
             ABOUT
         }
+
+
+        //internal Color gcolUIDark = Color.FromArgb(9, 132, 227);
+        internal Color gcolUIDark = Color.FromArgb(0, 71, 144);
+        //internal Color gcolUILight = Color.FromArgb(116, 185, 255);
+        internal Color gcolUILight = Color.FromArgb(224, 224, 224);//old 57, 213, 255
     }
 }

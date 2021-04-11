@@ -145,4 +145,13 @@
   <data name="icoAbout_small" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icoAbout_small.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="icoAbout_small_Alt" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icoAbout_small_Alt.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icoDashboard_small_Alt" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icoDashboard_small_Alt.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icoSettings_small_Alt" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icoSettings_small_Alt.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

@@ -83,6 +83,16 @@ namespace APControlCentre.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icoAbout_small_Alt {
+            get {
+                object obj = ResourceManager.GetObject("icoAbout_small_Alt", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icoCancel {
             get {
                 object obj = ResourceManager.GetObject("icoCancel", resourceCulture);
@@ -113,6 +123,16 @@ namespace APControlCentre.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icoDashboard_small_Alt {
+            get {
+                object obj = ResourceManager.GetObject("icoDashboard_small_Alt", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icoMinimise {
             get {
                 object obj = ResourceManager.GetObject("icoMinimise", resourceCulture);
@@ -136,6 +156,16 @@ namespace APControlCentre.Properties {
         internal static System.Drawing.Bitmap icoSettings_small {
             get {
                 object obj = ResourceManager.GetObject("icoSettings_small", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icoSettings_small_Alt {
+            get {
+                object obj = ResourceManager.GetObject("icoSettings_small_Alt", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

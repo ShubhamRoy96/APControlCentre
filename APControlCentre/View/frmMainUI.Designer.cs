@@ -29,18 +29,22 @@
         private void InitializeComponent()
         {
             this.pnlNav = new System.Windows.Forms.Panel();
-            this.pctAbout = new System.Windows.Forms.PictureBox();
             this.lblAbout = new System.Windows.Forms.Label();
-            this.pctSettings = new System.Windows.Forms.PictureBox();
             this.lblSettings = new System.Windows.Forms.Label();
-            this.pctDashboard = new System.Windows.Forms.PictureBox();
             this.lblDashboard = new System.Windows.Forms.Label();
             this.btnMinimise = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
+            this.pctAbout = new System.Windows.Forms.PictureBox();
+            this.pctSettings = new System.Windows.Forms.PictureBox();
+            this.pctDashboard = new System.Windows.Forms.PictureBox();
+            this.tbllayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.chrtCPU = new LiveCharts.WinForms.CartesianChart();
+            this.chrtGPU = new LiveCharts.WinForms.CartesianChart();
             this.pnlNav.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pctAbout)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pctSettings)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pctDashboard)).BeginInit();
+            this.tbllayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlNav
@@ -57,72 +61,42 @@
             this.pnlNav.Size = new System.Drawing.Size(168, 501);
             this.pnlNav.TabIndex = 0;
             // 
-            // pctAbout
-            // 
-            this.pctAbout.BackColor = System.Drawing.Color.Transparent;
-            this.pctAbout.Image = global::APControlCentre.Properties.Resources.icoAbout_small;
-            this.pctAbout.Location = new System.Drawing.Point(4, 202);
-            this.pctAbout.Name = "pctAbout";
-            this.pctAbout.Size = new System.Drawing.Size(42, 40);
-            this.pctAbout.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pctAbout.TabIndex = 6;
-            this.pctAbout.TabStop = false;
-            // 
             // lblAbout
             // 
             this.lblAbout.BackColor = System.Drawing.Color.Transparent;
-            this.lblAbout.Font = new System.Drawing.Font("Overpass", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAbout.ForeColor = System.Drawing.Color.Black;
+            this.lblAbout.Font = new System.Drawing.Font("Overpass", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAbout.ForeColor = System.Drawing.Color.White;
             this.lblAbout.Location = new System.Drawing.Point(0, 199);
             this.lblAbout.Name = "lblAbout";
+            this.lblAbout.Padding = new System.Windows.Forms.Padding(0, 0, 5, 0);
             this.lblAbout.Size = new System.Drawing.Size(168, 50);
             this.lblAbout.TabIndex = 2;
             this.lblAbout.Text = "ABOUT";
             this.lblAbout.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lblAbout.Click += new System.EventHandler(this.BtnPage_Click);
             // 
-            // pctSettings
-            // 
-            this.pctSettings.BackColor = System.Drawing.Color.Transparent;
-            this.pctSettings.Image = global::APControlCentre.Properties.Resources.icoSettings_small;
-            this.pctSettings.Location = new System.Drawing.Point(4, 153);
-            this.pctSettings.Name = "pctSettings";
-            this.pctSettings.Size = new System.Drawing.Size(42, 40);
-            this.pctSettings.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pctSettings.TabIndex = 4;
-            this.pctSettings.TabStop = false;
-            // 
             // lblSettings
             // 
             this.lblSettings.BackColor = System.Drawing.Color.Transparent;
-            this.lblSettings.Font = new System.Drawing.Font("Overpass", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSettings.ForeColor = System.Drawing.Color.Black;
+            this.lblSettings.Font = new System.Drawing.Font("Overpass", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSettings.ForeColor = System.Drawing.Color.White;
             this.lblSettings.Location = new System.Drawing.Point(0, 149);
             this.lblSettings.Name = "lblSettings";
+            this.lblSettings.Padding = new System.Windows.Forms.Padding(0, 0, 5, 0);
             this.lblSettings.Size = new System.Drawing.Size(168, 50);
             this.lblSettings.TabIndex = 1;
             this.lblSettings.Text = "SETTINGS";
             this.lblSettings.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lblSettings.Click += new System.EventHandler(this.BtnPage_Click);
             // 
-            // pctDashboard
-            // 
-            this.pctDashboard.BackColor = System.Drawing.Color.LightSkyBlue;
-            this.pctDashboard.Image = global::APControlCentre.Properties.Resources.icoDashboard;
-            this.pctDashboard.Location = new System.Drawing.Point(4, 101);
-            this.pctDashboard.Name = "pctDashboard";
-            this.pctDashboard.Size = new System.Drawing.Size(42, 46);
-            this.pctDashboard.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pctDashboard.TabIndex = 3;
-            this.pctDashboard.TabStop = false;
-            // 
             // lblDashboard
             // 
-            this.lblDashboard.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.lblDashboard.BackColor = System.Drawing.Color.GhostWhite;
             this.lblDashboard.Font = new System.Drawing.Font("Overpass ExtraBold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDashboard.ForeColor = System.Drawing.Color.Black;
             this.lblDashboard.Location = new System.Drawing.Point(0, 100);
             this.lblDashboard.Name = "lblDashboard";
+            this.lblDashboard.Padding = new System.Windows.Forms.Padding(0, 0, 5, 0);
             this.lblDashboard.Size = new System.Drawing.Size(168, 50);
             this.lblDashboard.TabIndex = 0;
             this.lblDashboard.Text = "DASHBOARD";
@@ -165,6 +139,71 @@
             this.btnExit.MouseEnter += new System.EventHandler(this.btnExit_MouseEnter);
             this.btnExit.MouseLeave += new System.EventHandler(this.btnExit_MouseLeave);
             // 
+            // pctAbout
+            // 
+            this.pctAbout.BackColor = System.Drawing.Color.Transparent;
+            this.pctAbout.Image = global::APControlCentre.Properties.Resources.icoAbout_small_Alt;
+            this.pctAbout.Location = new System.Drawing.Point(4, 202);
+            this.pctAbout.Name = "pctAbout";
+            this.pctAbout.Size = new System.Drawing.Size(42, 40);
+            this.pctAbout.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pctAbout.TabIndex = 6;
+            this.pctAbout.TabStop = false;
+            // 
+            // pctSettings
+            // 
+            this.pctSettings.BackColor = System.Drawing.Color.Transparent;
+            this.pctSettings.Image = global::APControlCentre.Properties.Resources.icoSettings_small_Alt;
+            this.pctSettings.Location = new System.Drawing.Point(4, 153);
+            this.pctSettings.Name = "pctSettings";
+            this.pctSettings.Size = new System.Drawing.Size(42, 40);
+            this.pctSettings.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pctSettings.TabIndex = 4;
+            this.pctSettings.TabStop = false;
+            // 
+            // pctDashboard
+            // 
+            this.pctDashboard.BackColor = System.Drawing.Color.GhostWhite;
+            this.pctDashboard.Image = global::APControlCentre.Properties.Resources.icoDashboard;
+            this.pctDashboard.Location = new System.Drawing.Point(4, 101);
+            this.pctDashboard.Name = "pctDashboard";
+            this.pctDashboard.Size = new System.Drawing.Size(42, 46);
+            this.pctDashboard.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pctDashboard.TabIndex = 3;
+            this.pctDashboard.TabStop = false;
+            // 
+            // tbllayoutPanel
+            // 
+            this.tbllayoutPanel.ColumnCount = 2;
+            this.tbllayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tbllayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tbllayoutPanel.Controls.Add(this.chrtGPU, 1, 0);
+            this.tbllayoutPanel.Controls.Add(this.chrtCPU, 0, 0);
+            this.tbllayoutPanel.Location = new System.Drawing.Point(175, 41);
+            this.tbllayoutPanel.Name = "tbllayoutPanel";
+            this.tbllayoutPanel.RowCount = 2;
+            this.tbllayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.tbllayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tbllayoutPanel.Size = new System.Drawing.Size(813, 447);
+            this.tbllayoutPanel.TabIndex = 1;
+            // 
+            // chrtCPU
+            // 
+            this.chrtCPU.Location = new System.Drawing.Point(3, 3);
+            this.chrtCPU.Name = "chrtCPU";
+            this.chrtCPU.Size = new System.Drawing.Size(400, 262);
+            this.chrtCPU.TabIndex = 0;
+            this.chrtCPU.TabStop = false;
+            // 
+            // chrtGPU
+            // 
+            this.chrtGPU.Location = new System.Drawing.Point(409, 3);
+            this.chrtGPU.Name = "chrtGPU";
+            this.chrtGPU.Size = new System.Drawing.Size(400, 262);
+            this.chrtGPU.TabIndex = 1;
+            this.chrtGPU.TabStop = false;
+            this.chrtGPU.Text = "cartesianChart2";
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -172,6 +211,7 @@
             this.BackColor = System.Drawing.Color.GhostWhite;
             this.ClientSize = new System.Drawing.Size(1000, 500);
             this.ControlBox = false;
+            this.Controls.Add(this.tbllayoutPanel);
             this.Controls.Add(this.btnMinimise);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.pnlNav);
@@ -183,6 +223,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pctAbout)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pctSettings)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pctDashboard)).EndInit();
+            this.tbllayoutPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -198,6 +239,9 @@
         private System.Windows.Forms.Label lblSettings;
         private System.Windows.Forms.PictureBox pctAbout;
         private System.Windows.Forms.Label lblAbout;
+        private System.Windows.Forms.TableLayoutPanel tbllayoutPanel;
+        private LiveCharts.WinForms.CartesianChart chrtGPU;
+        private LiveCharts.WinForms.CartesianChart chrtCPU;
     }
 }
 
