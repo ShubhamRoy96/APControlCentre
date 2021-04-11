@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ namespace APControlCentre.Model
     class ClsVariables
     {
         public Label CurrentPage { get; set; }
-        internal enum Pages
+        public enum Pages
         {
             DASHBOARD,
             SETTINGS,
@@ -24,6 +25,9 @@ namespace APControlCentre.Model
         //internal Color gcolUIDark = Color.FromArgb(9, 132, 227);
         internal Color gcolUIDark = Color.FromArgb(0, 71, 144);
         //internal Color gcolUILight = Color.FromArgb(116, 185, 255);
-        internal Color gcolUILight = Color.FromArgb(224, 224, 224);//old 57, 213, 255
+        //internal Color gcolUILight = Color.FromArgb(224, 224, 224);//old 57, 213, 255
+        internal Color gcolUILight = Color.GhostWhite;
+        internal MdiClient GetMdiClient = default(MdiClient);
+        internal string port;
     }
 }

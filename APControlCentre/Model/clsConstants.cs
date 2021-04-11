@@ -9,7 +9,12 @@ namespace APControlCentre.Model
 {
     internal class clsConstants
     {
-
+        internal enum Pages
+        {
+            DASHBOARD,
+            SETTINGS,
+            ABOUT
+        }
         
     }
 }

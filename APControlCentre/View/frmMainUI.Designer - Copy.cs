@@ -1,6 +1,6 @@
-﻿namespace APControlCentre.View
+﻿namespace APControlCentre
 {
-    partial class frmMainUI
+    partial class frmMain
     {
         /// <summary>
         /// Required designer variable.
@@ -168,9 +168,10 @@
             this.pctDashboard.TabIndex = 3;
             this.pctDashboard.TabStop = false;
             // 
-            // frmMainUI
+            // frmMain
             // 
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.GhostWhite;
             this.ClientSize = new System.Drawing.Size(1000, 500);
             this.ControlBox = false;
@@ -179,9 +180,8 @@
             this.Controls.Add(this.pnlNav);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.IsMdiContainer = true;
-            this.Name = "frmMainUI";
+            this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMainUI_FormClosing);
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.pnlNav.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pctAbout)).EndInit();

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace APControlCentre
+namespace APControlCentre.View
 {
     static class clsMain
     {
@@ -18,7 +18,8 @@ namespace APControlCentre
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             ClsCommon.InitialiseClasses();
-            Application.Run(new frmMain());
+            ClsCommon.InitialiseForms();
+            Application.Run(new frmMainUI());
         }
     }
 }

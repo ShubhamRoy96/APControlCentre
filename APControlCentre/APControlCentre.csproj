@@ -66,24 +66,52 @@
   <ItemGroup>
     <Compile Include="Controller\clsController.cs" />
     <Compile Include="Model\clsConstants.cs" />
-    <Compile Include="View\frmMainUI.cs">
+    <Compile Include="Model\clsDashboard.cs" />
+    <Compile Include="View\frmAbout.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\frmMainUI.Designer.cs">
-      <DependentUpon>frmMainUI.cs</DependentUpon>
+    <Compile Include="View\frmAbout.Designer.cs">
+      <DependentUpon>frmAbout.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\frmDashboard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\frmDashboard.Designer.cs">
+      <DependentUpon>frmDashboard.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\clsCommon.cs" />
     <Compile Include="Model\clsFunctions.cs" />
     <Compile Include="Model\clsVariables.cs" />
     <Compile Include="clsMain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="View\frmMainUI.resx">
+    <Compile Include="View\frmMainUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\frmMainUI.Designer.cs">
       <DependentUpon>frmMainUI.cs</DependentUpon>
-    </EmbeddedResource>
+    </Compile>
+    <Compile Include="View\frmSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\frmSettings.Designer.cs">
+      <DependentUpon>frmSettings.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\frmAbout.resx">
+      <DependentUpon>frmAbout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\frmDashboard.resx">
+      <DependentUpon>frmDashboard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\frmMainUI.resx">
+      <DependentUpon>frmMainUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\frmSettings.resx">
+      <DependentUpon>frmSettings.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using APControlCentre;
+using APControlCentre.View;
 
 namespace APControlCentre.Controller
 {
@@ -21,7 +22,7 @@ namespace APControlCentre.Controller
 
         private void SubscribeEvents()
         {
-            frmMain.NavigationButtonClicked += HandleNavigationButtonClick;
+            frmMainUI.NavigationButtonClicked += HandleNavigationButtonClick;
         }
 
         
