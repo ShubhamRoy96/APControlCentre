@@ -14,51 +14,51 @@ using System.Windows.Forms;
 
 namespace APControlCentre.View
 {
-    public partial class frmMainUI : Form
+    public partial class frmMainUI : Form, IClsMain
     {
         bool isConnected = false;
-        
-        
+        private PictureBox OldIcon { get; set; }
+        private PictureBox NewIcon { get; set; }
+
+
 
         public frmMainUI()
         {
             InitializeComponent();
-            SunscribeEvents();
 
-            
+            SubscribeEvents();
         }
 
-        private void SunscribeEvents()
+
+
+        private void ChangeUIPage(Label oldPageLabel, Label newPageLabel)
         {
             try
             {
-                ClsCommon.gobjclsFunctions.UIPageChanged += ChangeUIPage;
-            }
-            catch (Exception)
-            {
+                UserControl newPage = null;
+                UserControl oldPage = null;
+                
 
-                throw;
-            }
-        }
-
-        private async void ChangeUIPage(Label oldPage, Label newPage)
-        {
-            try
-            {
-                Form newForm = new Form();
-                Form oldForm = this.ActiveMdiChild;
+                if (grpContainer.Controls.Count > 0)
+                {
+                    oldPage = grpContainer.Controls[0] as UserControl;                    
+                }
                 bool isInvalid = false;
-                clsConstants.Pages page = (clsConstants.Pages)Enum.Parse(typeof(clsConstants.Pages), newPage.Text);
-                switch (page)
+                clsConstants.Pages newPageName = (clsConstants.Pages)Enum.Parse(typeof(clsConstants.Pages), newPageLabel.Text);
+
+                switch (newPageName)
                 {
                     case clsConstants.Pages.DASHBOARD:
-                        newForm = ClsCommon.GetFrmDashboard;
+                        newPage = ClsCommon.GetDashboard;
+                        NewIcon = pctDashboard;
                         break;
                     case clsConstants.Pages.SETTINGS:
-                        newForm = ClsCommon.GetFrmSettings;
+                        newPage = ClsCommon.GetSettings;
+                        NewIcon = pctSettings;
                         break;
                     case clsConstants.Pages.ABOUT:
-                        newForm = ClsCommon.GetFrmAbout;
+                        newPage = ClsCommon.GetAbout;
+                        NewIcon = pctAbout;
                         break;
                     default:
                         isInvalid = true;
@@ -66,24 +66,48 @@ namespace APControlCentre.View
 
                 }
 
+                clsConstants.Pages oldPageName = (clsConstants.Pages)Enum.Parse(typeof(clsConstants.Pages), oldPageLabel.Text);
+
+                switch (oldPageName)
+                {
+                    case clsConstants.Pages.DASHBOARD:                        
+                        OldIcon = pctDashboard;
+                        break;
+                    case clsConstants.Pages.SETTINGS:
+                        OldIcon = pctSettings;
+                        break;
+                    case clsConstants.Pages.ABOUT:
+                        OldIcon = pctAbout;
+                        break;
+                    default:
+                        isInvalid = true;
+                        break;
+
+                }
+
+
+
                 if (!isInvalid)
                 {
-                    if (oldForm != null && oldForm.Visible)
+                    if (oldPage != null && oldPage.Visible)
                     {
-                        oldForm.Hide();
+                        oldPage.Visible = false;
+                        IClsUI oldPageInterface = oldPage as IClsUI;
+                        object oldPbox = OldIcon;
+                        oldPageInterface.ChangeIcon(ref oldPbox, EnumNewOldIndicator.Old);
+                        grpContainer.Controls.Remove(oldPage);
                     }
 
+                    newPage.Visible = true;
+                    IClsUI newPageInterface = newPage as IClsUI;
+                    object NewPbox = NewIcon;
+                    newPageInterface.ChangeIcon(ref NewPbox, EnumNewOldIndicator.New);
+                    grpContainer.Controls.Add(newPage);                    
+                    newPage.Size = grpContainer.Size;
 
-                    newForm.Show();
-
-                    newForm.MdiParent = this;
-                    newForm.Width = this.Width - pnlNav.Width;
-                    newForm.Height = this.Height;
-                    newForm.Location = new Point(pnlNav.Width, btnExit.Height);                    
-
-                    ClsCommon.gobjclsVariables.GetMdiClient.BackColor = newForm.BackColor;
+                    Task.Run(() => ChangeUIColors(oldPageLabel, newPageLabel));
                 }
-                await ChangeUIColors(oldPage, newPage);
+                
             }
             catch (Exception)
             {
@@ -92,57 +116,57 @@ namespace APControlCentre.View
             }
         }
 
-        private async Task ChangeUIColors(Label oldPage, Label newPage)
+        private async void ChangeUIColors(Label oldPageLabel, Label newPageLabel)
         {
-            oldPage.BackColor = ClsCommon.gobjclsVariables.gcolUIDark;
-            oldPage.ForeColor = ClsCommon.gobjclsVariables.gcolUILight;
-            oldPage.Font = new Font("Overpass", 10, FontStyle.Regular, GraphicsUnit.Point);
+            oldPageLabel.BackColor = ClsCommon.gobjclsVariables.gcolUIDark;
+            oldPageLabel.ForeColor = ClsCommon.gobjclsVariables.gcolUILight;
+            oldPageLabel.Font = new Font("Overpass", 10, FontStyle.Regular, GraphicsUnit.Point);
 
-            newPage.BackColor = ClsCommon.gobjclsVariables.gcolUILight;
-            newPage.ForeColor = Color.Black;
-            newPage.Font = new Font("Overpass ExtraBold", 12, FontStyle.Regular, GraphicsUnit.Point);
+            newPageLabel.BackColor = ClsCommon.gobjclsVariables.gcolUILight;
+            newPageLabel.ForeColor = Color.Black;
+            newPageLabel.Font = new Font("Overpass ExtraBold", 12, FontStyle.Regular, GraphicsUnit.Point);
 
-            ClsCommon.gobjclsVariables.CurrentPage = newPage;
+            ClsCommon.gobjclsVariables.CurrentPage = newPageLabel;
 
-            string oldsubName = oldPage.Text[0] + oldPage.Text.Substring(1).ToLower();
-            string newSubname = newPage.Text[0] + newPage.Text.Substring(1).ToLower();
-            string strPctOldBoxName = "pct" + oldsubName;
-            string strPctNewBoxName = "pct" + newSubname;
-            foreach (Control uiElement in pnlNav.Controls)
-            {
-                if (uiElement is PictureBox pctBox)
-                {
-                    if (pctBox.Name == strPctOldBoxName && pctBox.Name != strPctNewBoxName)
-                    {
-                        pctBox.BackColor = oldPage.BackColor;
-                        // Get resources from .resx file.
-
-
-                        // Retrieve the image.
-                        Bitmap image = (Bitmap)APControlCentre.Properties.Resources.ResourceManager.GetObject("ico" + oldsubName + "_small_Alt");
-                        if (image != null)
-                            pctBox.Image = image;
+            //string oldsubName = oldPageLabel.Text[0] + oldPageLabel.Text.Substring(1).ToLower();
+            //string newSubname = newPageLabel.Text[0] + newPageLabel.Text.Substring(1).ToLower();
+            //string strPctOldBoxName = "pct" + oldsubName;
+            //string strPctNewBoxName = "pct" + newSubname;
+            //foreach (Control uiElement in pnlNav.Controls)
+            //{
+            //    if (uiElement is PictureBox pctBox)
+            //    {
+            //        if (pctBox.Name == strPctOldBoxName && pctBox.Name != strPctNewBoxName)
+            //        {
+            //            pctBox.BackColor = oldPageLabel.BackColor;
+            //            // Get resources from .resx file.
 
 
-                    }
-                    else if (pctBox.Name == strPctNewBoxName)
-                    {
-                        pctBox.BackColor = newPage.BackColor;
-                        // Retrieve the image.
-                        Bitmap image = (Bitmap)APControlCentre.Properties.Resources.ResourceManager.GetObject("ico" + newSubname + "");
-                        if (image != null)
-                            pctBox.Image = image;
-                    }
-                }
-            }
+            //            // Retrieve the image.
+            //            Bitmap image = (Bitmap)APControlCentre.Properties.Resources.ResourceManager.GetObject("ico" + oldsubName + "_small_Alt");
+            //            if (image != null)
+            //                pctBox.Image = image;
+
+
+            //        }
+            //        else if (pctBox.Name == strPctNewBoxName)
+            //        {
+            //            pctBox.BackColor = newPageLabel.BackColor;
+            //            // Retrieve the image.
+            //            Bitmap image = (Bitmap)APControlCentre.Properties.Resources.ResourceManager.GetObject("ico" + newSubname + "");
+            //            if (image != null)
+            //                pctBox.Image = image;
+            //        }
+            //    }
+            //}
 
             int moveLimit = 12;
-            int startLocation = newPage.Padding.Right;
+            int startLocation = newPageLabel.Padding.Right;
             for (int i = startLocation; i <= moveLimit; ++i)
             {
-                newPage.Padding = new Padding(0, 0, i, 0);
-                if (oldPage != newPage)
-                    oldPage.Padding = new Padding(0, 0, moveLimit - i + startLocation, 0);
+                newPageLabel.Padding = new Padding(0, 0, i, 0);
+                if (oldPageLabel != newPageLabel)
+                    oldPageLabel.Padding = new Padding(0, 0, moveLimit - i + startLocation, 0);
                 await Task.Delay(1);
             }
         }
@@ -193,16 +217,16 @@ namespace APControlCentre.View
         {
             try
             {
-                foreach (Control ctl in this.Controls)
-                {
+                //foreach (Control ctl in this.Controls)
+                //{
 
-                    MdiClient Mdi = ctl as MdiClient;
-                    if (Mdi != null)
-                    {
-                        ClsCommon.gobjclsVariables.GetMdiClient = Mdi;
-                    }
+                //    MdiClient Mdi = ctl as MdiClient;
+                //    if (Mdi != null)
+                //    {
+                //        ClsCommon.gobjclsVariables.GetMdiClient = Mdi;
+                //    }
 
-                }
+                //}
                 ChangeUIPage(lblDashboard, lblDashboard);
                 pnlNav.BackColor = ClsCommon.gobjclsVariables.gcolUIDark; //Dark
                 this.BackColor = ClsCommon.gobjclsVariables.gcolUILight; //Light
@@ -246,22 +270,49 @@ namespace APControlCentre.View
             }
         }
 
-        private const int SB_BOTH = 3;
-        [DllImport("user32.dll")]
-        private static extern int ShowScrollBar(IntPtr hWnd, int wBar, int bShow);
+        //private const int SB_BOTH = 3;
+        //[DllImport("user32.dll")]
+        //private static extern int ShowScrollBar(IntPtr hWnd, int wBar, int bShow);
 
-        protected override void WndProc(ref Message m)
-        {
-            if (ClsCommon.gobjclsVariables.GetMdiClient != null)
-            {
-                ShowScrollBar(ClsCommon.gobjclsVariables.GetMdiClient.Handle, SB_BOTH, 0 /*Hide the ScrollBars*/);
-            }
-            base.WndProc(ref m);
-        }
+        //protected override void WndProc(ref Message m)
+        //{
+        //    if (ClsCommon.gobjclsVariables.GetMdiClient != null)
+        //    {
+        //        ShowScrollBar(ClsCommon.gobjclsVariables.GetMdiClient.Handle, SB_BOTH, 0 /*Hide the ScrollBars*/);
+        //    }
+        //    base.WndProc(ref m);
+        //}
 
         private void frmMainUI_FormClosing(object sender, FormClosingEventArgs e)
         {
             ClsCommon.gobjclsVariables.GetMdiClient = null;
+        }
+
+
+
+        public void UnSubscribeEvents()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetDefaultValues()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SubscribeEvents()
+        {
+
+            try
+            {
+                ClsCommon.gobjclsFunctions.UIPageChanged += ChangeUIPage;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
         }
     }
 }

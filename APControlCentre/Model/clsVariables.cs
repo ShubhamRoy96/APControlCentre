@@ -28,6 +28,6 @@ namespace APControlCentre.Model
         //internal Color gcolUILight = Color.FromArgb(224, 224, 224);//old 57, 213, 255
         internal Color gcolUILight = Color.GhostWhite;
         internal MdiClient GetMdiClient = default(MdiClient);
-        internal string port;
+        internal SerialPort port;
     }
 }

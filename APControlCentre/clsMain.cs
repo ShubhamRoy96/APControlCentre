@@ -18,7 +18,7 @@ namespace APControlCentre.View
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             ClsCommon.InitialiseClasses();
-            ClsCommon.InitialiseForms();
+            ClsCommon.InitialisePages();
             Application.Run(new frmMainUI());
         }
     }

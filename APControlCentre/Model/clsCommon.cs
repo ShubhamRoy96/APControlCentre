@@ -16,11 +16,12 @@ namespace APControlCentre.Model
         internal static ClsVariables gobjclsVariables;
         internal static ClsController gobjclsController;
         internal static ClsFunctions gobjclsFunctions;
-        internal static frmDashboard GetFrmDashboard;
-        internal static frmSettings GetFrmSettings;
-        internal static frmAbout GetFrmAbout;
 
-        
+        internal static Dashboard GetDashboard;
+        internal static Settings GetSettings;
+        internal static About GetAbout;
+
+
         internal static void InitialiseClasses()
         {
             gobjclsVariables = new ClsVariables();
@@ -28,11 +29,11 @@ namespace APControlCentre.Model
             gobjclsFunctions = new ClsFunctions();            
         }
 
-        internal static void InitialiseForms()
+        internal static void InitialisePages()
         {
-            GetFrmDashboard = new frmDashboard();
-            GetFrmSettings = new frmSettings();
-            GetFrmAbout = new frmAbout();
+            GetDashboard = new Dashboard();
+            GetSettings = new Settings();
+            GetAbout = new About();
         }
 
 

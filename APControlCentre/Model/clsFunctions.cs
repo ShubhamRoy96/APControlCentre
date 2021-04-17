@@ -1,4 +1,5 @@
 ﻿using APControlCentre.Model;
+using APControlCentre.View;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,6 +25,33 @@ namespace APControlCentre.Model
                 Label oldPage = ClsCommon.gobjclsVariables.CurrentPage;
                 if (oldPage != newPage)
                     UIPageChanged?.Invoke(oldPage, newPage);
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        internal void ChangeNavButtonImage(ref object pict, Image img, EnumNewOldIndicator indicator)
+        {
+            try
+            {
+                PictureBox pbox = pict as PictureBox;
+
+                if (indicator.Equals(EnumNewOldIndicator.Old))
+                {                    
+                    pbox.BackColor = ClsCommon.gobjclsVariables.gcolUIDark;
+                }
+                else
+                {
+                 
+                    pbox.BackColor = ClsCommon.gobjclsVariables.gcolUILight;
+                }
+
+                if (img != null)
+                    pbox.Image = img;
 
             }
             catch (Exception)

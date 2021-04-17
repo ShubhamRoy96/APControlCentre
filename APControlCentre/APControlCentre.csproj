@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
       <HintPath>..\packages\LiveCharts.0.9.7\lib\net45\LiveCharts.dll</HintPath>
@@ -67,18 +70,14 @@
     <Compile Include="Controller\clsController.cs" />
     <Compile Include="Model\clsConstants.cs" />
     <Compile Include="Model\clsDashboard.cs" />
-    <Compile Include="View\frmAbout.cs">
-      <SubType>Form</SubType>
+    <Compile Include="Model\DataSender.cs" />
+    <Compile Include="View\About.cs">
+      <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="View\frmAbout.Designer.cs">
-      <DependentUpon>frmAbout.cs</DependentUpon>
+    <Compile Include="View\About.Designer.cs">
+      <DependentUpon>About.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\frmDashboard.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="View\frmDashboard.Designer.cs">
-      <DependentUpon>frmDashboard.cs</DependentUpon>
-    </Compile>
+    <Compile Include="View\Classes\IclsUI.cs" />
     <Compile Include="Model\clsCommon.cs" />
     <Compile Include="Model\clsFunctions.cs" />
     <Compile Include="Model\clsVariables.cs" />
@@ -90,29 +89,33 @@
     <Compile Include="View\frmMainUI.Designer.cs">
       <DependentUpon>frmMainUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\frmSettings.cs">
-      <SubType>Form</SubType>
+    <Compile Include="View\Dashboard.cs">
+      <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="View\frmSettings.Designer.cs">
-      <DependentUpon>frmSettings.cs</DependentUpon>
+    <Compile Include="View\Dashboard.Designer.cs">
+      <DependentUpon>Dashboard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Settings.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\Settings.Designer.cs">
+      <DependentUpon>Settings.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\frmAbout.resx">
-      <DependentUpon>frmAbout.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="View\frmDashboard.resx">
-      <DependentUpon>frmDashboard.cs</DependentUpon>
+    <EmbeddedResource Include="View\Dashboard.resx">
+      <DependentUpon>Dashboard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\frmMainUI.resx">
       <DependentUpon>frmMainUI.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\frmSettings.resx">
-      <DependentUpon>frmSettings.cs</DependentUpon>
+    <EmbeddedResource Include="View\Settings.resx">
+      <DependentUpon>Settings.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="app.manifest" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -29,14 +29,15 @@
         private void InitializeComponent()
         {
             this.pnlNav = new System.Windows.Forms.Panel();
+            this.pctAbout = new System.Windows.Forms.PictureBox();
             this.lblAbout = new System.Windows.Forms.Label();
+            this.pctSettings = new System.Windows.Forms.PictureBox();
             this.lblSettings = new System.Windows.Forms.Label();
+            this.pctDashboard = new System.Windows.Forms.PictureBox();
             this.lblDashboard = new System.Windows.Forms.Label();
             this.btnMinimise = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
-            this.pctAbout = new System.Windows.Forms.PictureBox();
-            this.pctSettings = new System.Windows.Forms.PictureBox();
-            this.pctDashboard = new System.Windows.Forms.PictureBox();
+            this.grpContainer = new System.Windows.Forms.GroupBox();
             this.pnlNav.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pctAbout)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pctSettings)).BeginInit();
@@ -54,8 +55,19 @@
             this.pnlNav.Controls.Add(this.lblDashboard);
             this.pnlNav.Location = new System.Drawing.Point(0, 0);
             this.pnlNav.Name = "pnlNav";
-            this.pnlNav.Size = new System.Drawing.Size(168, 501);
+            this.pnlNav.Size = new System.Drawing.Size(168, 500);
             this.pnlNav.TabIndex = 0;
+            // 
+            // pctAbout
+            // 
+            this.pctAbout.BackColor = System.Drawing.Color.Transparent;
+            this.pctAbout.Image = global::APControlCentre.Properties.Resources.icoAbout_small_Alt;
+            this.pctAbout.Location = new System.Drawing.Point(4, 202);
+            this.pctAbout.Name = "pctAbout";
+            this.pctAbout.Size = new System.Drawing.Size(42, 40);
+            this.pctAbout.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pctAbout.TabIndex = 6;
+            this.pctAbout.TabStop = false;
             // 
             // lblAbout
             // 
@@ -71,6 +83,17 @@
             this.lblAbout.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lblAbout.Click += new System.EventHandler(this.BtnPage_Click);
             // 
+            // pctSettings
+            // 
+            this.pctSettings.BackColor = System.Drawing.Color.Transparent;
+            this.pctSettings.Image = global::APControlCentre.Properties.Resources.icoSettings_small_Alt;
+            this.pctSettings.Location = new System.Drawing.Point(4, 153);
+            this.pctSettings.Name = "pctSettings";
+            this.pctSettings.Size = new System.Drawing.Size(42, 40);
+            this.pctSettings.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pctSettings.TabIndex = 4;
+            this.pctSettings.TabStop = false;
+            // 
             // lblSettings
             // 
             this.lblSettings.BackColor = System.Drawing.Color.Transparent;
@@ -84,6 +107,17 @@
             this.lblSettings.Text = "SETTINGS";
             this.lblSettings.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lblSettings.Click += new System.EventHandler(this.BtnPage_Click);
+            // 
+            // pctDashboard
+            // 
+            this.pctDashboard.BackColor = System.Drawing.Color.GhostWhite;
+            this.pctDashboard.Image = global::APControlCentre.Properties.Resources.icoDashboard;
+            this.pctDashboard.Location = new System.Drawing.Point(4, 101);
+            this.pctDashboard.Name = "pctDashboard";
+            this.pctDashboard.Size = new System.Drawing.Size(42, 46);
+            this.pctDashboard.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pctDashboard.TabIndex = 3;
+            this.pctDashboard.TabStop = false;
             // 
             // lblDashboard
             // 
@@ -135,38 +169,16 @@
             this.btnExit.MouseEnter += new System.EventHandler(this.btnExit_MouseEnter);
             this.btnExit.MouseLeave += new System.EventHandler(this.btnExit_MouseLeave);
             // 
-            // pctAbout
+            // grpContainer
             // 
-            this.pctAbout.BackColor = System.Drawing.Color.Transparent;
-            this.pctAbout.Image = global::APControlCentre.Properties.Resources.icoAbout_small_Alt;
-            this.pctAbout.Location = new System.Drawing.Point(4, 202);
-            this.pctAbout.Name = "pctAbout";
-            this.pctAbout.Size = new System.Drawing.Size(42, 40);
-            this.pctAbout.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pctAbout.TabIndex = 6;
-            this.pctAbout.TabStop = false;
-            // 
-            // pctSettings
-            // 
-            this.pctSettings.BackColor = System.Drawing.Color.Transparent;
-            this.pctSettings.Image = global::APControlCentre.Properties.Resources.icoSettings_small_Alt;
-            this.pctSettings.Location = new System.Drawing.Point(4, 153);
-            this.pctSettings.Name = "pctSettings";
-            this.pctSettings.Size = new System.Drawing.Size(42, 40);
-            this.pctSettings.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pctSettings.TabIndex = 4;
-            this.pctSettings.TabStop = false;
-            // 
-            // pctDashboard
-            // 
-            this.pctDashboard.BackColor = System.Drawing.Color.GhostWhite;
-            this.pctDashboard.Image = global::APControlCentre.Properties.Resources.icoDashboard;
-            this.pctDashboard.Location = new System.Drawing.Point(4, 101);
-            this.pctDashboard.Name = "pctDashboard";
-            this.pctDashboard.Size = new System.Drawing.Size(42, 46);
-            this.pctDashboard.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pctDashboard.TabIndex = 3;
-            this.pctDashboard.TabStop = false;
+            this.grpContainer.BackColor = System.Drawing.Color.Transparent;
+            this.grpContainer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.grpContainer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.grpContainer.Location = new System.Drawing.Point(168, 32);
+            this.grpContainer.Name = "grpContainer";
+            this.grpContainer.Size = new System.Drawing.Size(832, 468);
+            this.grpContainer.TabIndex = 1;
+            this.grpContainer.TabStop = false;
             // 
             // frmMainUI
             // 
@@ -174,11 +186,11 @@
             this.BackColor = System.Drawing.Color.GhostWhite;
             this.ClientSize = new System.Drawing.Size(1000, 500);
             this.ControlBox = false;
+            this.Controls.Add(this.grpContainer);
             this.Controls.Add(this.btnMinimise);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.pnlNav);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.IsMdiContainer = true;
             this.Name = "frmMainUI";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMainUI_FormClosing);
@@ -202,6 +214,7 @@
         private System.Windows.Forms.Label lblSettings;
         private System.Windows.Forms.PictureBox pctAbout;
         private System.Windows.Forms.Label lblAbout;
+        private System.Windows.Forms.GroupBox grpContainer;
     }
 }
 

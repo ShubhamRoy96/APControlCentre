@@ -18,7 +18,7 @@ using System.IO;
 
 namespace APControlCentre.View
 {
-    public partial class frmDashboard : Form
+    public partial class Dashboard : UserControl, IClsUI
     {
         public ChartValues<ChartData> CPUChartValues { get; set; }
         public ChartValues<ChartData> GPUChartValues { get; set; }
@@ -36,7 +36,7 @@ namespace APControlCentre.View
         Queue DataQ = new Queue();
         Timer tmrPollData;
 
-        public frmDashboard()
+        public Dashboard()
         {
             InitializeComponent();
             InitializeCharting();
@@ -45,8 +45,7 @@ namespace APControlCentre.View
             {
                 Interval = 1000
             };
-            tmrPollData.Tick += TmrPollData_Tick;
-            SensorDataChanged += FrmDashboard_SensorDataChanged;
+            SubscribeEvents();
 
         }
 
@@ -58,7 +57,8 @@ namespace APControlCentre.View
 
                 await Task.Run(() => UpdateGPUData(data, now));
                 await Task.Run(() => UpdateCPUChart(data, now));
-                await Task.Run(() => SendDataToArduino(arduinoString));
+                if (port != null && port.IsOpen)
+                    await Task.Run(() => SendDataToArduino(arduinoString));
 
                 SetAxisLimits(now);
 
@@ -77,7 +77,7 @@ namespace APControlCentre.View
         {
             try
             {
-                port.Write(arduinoData);
+                DataSender.Enqueue(arduinoData);
             }
             catch (Exception)
             {
@@ -214,14 +214,15 @@ namespace APControlCentre.View
         }
 
 
-        private void frmDashboard_Load(object sender, EventArgs e)
+        private void Dashboard_Load(object sender, EventArgs e)
         {
             try
             {
                 StartTelemetry();
                 disableControls();
-                //if (!string.IsNullOrWhiteSpace(ClsCommon.gobjclsVariables.port))
-                connectToArduino();
+                if (ClsCommon.gobjclsVariables.port != null)
+                    connectToArduino();
+                tmrPollData.Start();
             }
             catch (Exception)
             {
@@ -262,147 +263,142 @@ namespace APControlCentre.View
                 string GPUName = string.Empty;
 
                 // enumerating all the hardware
-                if (port.IsOpen)
+                foreach (OpenHardwareMonitor.Hardware.IHardware hw in thisComputer.Hardware)
                 {
-                    foreach (OpenHardwareMonitor.Hardware.IHardware hw in thisComputer.Hardware)
+
+                    hw.Update();
+
+                    switch (hw.HardwareType)
                     {
+                        case OpenHardwareMonitor.Hardware.HardwareType.Mainboard:
+                            break;
+                        case OpenHardwareMonitor.Hardware.HardwareType.SuperIO:
+                            break;
+                        case OpenHardwareMonitor.Hardware.HardwareType.CPU:
+                            CPUName = hw.Name.Substring(4);
+                            break;
+                        case OpenHardwareMonitor.Hardware.HardwareType.RAM:
+                            break;
+                        case OpenHardwareMonitor.Hardware.HardwareType.GpuNvidia:
+                            GPUName = hw.Name;
+                            break;
+                        case OpenHardwareMonitor.Hardware.HardwareType.GpuAti:
+                            break;
+                        case OpenHardwareMonitor.Hardware.HardwareType.TBalancer:
+                            break;
+                        case OpenHardwareMonitor.Hardware.HardwareType.Heatmaster:
+                            break;
+                        case OpenHardwareMonitor.Hardware.HardwareType.HDD:
+                            break;
+                        default:
+                            break;
+                    }
 
-                        hw.Update();
-
-                        switch (hw.HardwareType)
+                    // searching for all sensors and adding data to listbox
+                    foreach (OpenHardwareMonitor.Hardware.ISensor sensor in hw.Sensors)
+                    {
+                        switch (sensor.SensorType)
                         {
-                            case OpenHardwareMonitor.Hardware.HardwareType.Mainboard:
+                            case OpenHardwareMonitor.Hardware.SensorType.Voltage:
                                 break;
-                            case OpenHardwareMonitor.Hardware.HardwareType.SuperIO:
+                            case OpenHardwareMonitor.Hardware.SensorType.Clock:
                                 break;
-                            case OpenHardwareMonitor.Hardware.HardwareType.CPU:
-                                CPUName = hw.Name.Substring(4);
+                            case OpenHardwareMonitor.Hardware.SensorType.Temperature:
+                                if (sensor.Value != null)
+                                {
+                                    int curTemp = (int)sensor.Value;
+                                    switch (sensor.Name)
+                                    {
+                                        case "CPU Package":
+                                            cpuTemp = curTemp.ToString();
+                                            break;
+                                        case "GPU Core":
+                                            gpuTemp = curTemp.ToString();
+                                            break;
+
+                                    }
+                                }
                                 break;
-                            case OpenHardwareMonitor.Hardware.HardwareType.RAM:
+                            case OpenHardwareMonitor.Hardware.SensorType.Load:
+                                if (sensor.Value != null)
+                                {
+                                    int curLoad = (int)sensor.Value;
+                                    switch (sensor.Name)
+                                    {
+                                        case "CPU Total":
+                                            cpuLoad = curLoad.ToString();
+                                            break;
+                                        case "GPU Core":
+                                            gpuLoad = curLoad.ToString();
+                                            break;
+                                    }
+                                }
                                 break;
-                            case OpenHardwareMonitor.Hardware.HardwareType.GpuNvidia:
-                                GPUName = hw.Name;
+                            case OpenHardwareMonitor.Hardware.SensorType.Fan:
                                 break;
-                            case OpenHardwareMonitor.Hardware.HardwareType.GpuAti:
+                            case OpenHardwareMonitor.Hardware.SensorType.Flow:
                                 break;
-                            case OpenHardwareMonitor.Hardware.HardwareType.TBalancer:
+                            case OpenHardwareMonitor.Hardware.SensorType.Control:
                                 break;
-                            case OpenHardwareMonitor.Hardware.HardwareType.Heatmaster:
+                            case OpenHardwareMonitor.Hardware.SensorType.Level:
                                 break;
-                            case OpenHardwareMonitor.Hardware.HardwareType.HDD:
+                            case OpenHardwareMonitor.Hardware.SensorType.Factor:
+                                break;
+                            case OpenHardwareMonitor.Hardware.SensorType.Power:
+                                break;
+                            case OpenHardwareMonitor.Hardware.SensorType.Data:
+                                if (sensor.Value != null)
+                                {
+                                    switch (sensor.Name)
+                                    {
+                                        case "Used Memory":
+                                            decimal decimalRam = Math.Round((decimal)sensor.Value, 1);
+                                            ramUsed = decimalRam.ToString();
+                                            break;
+                                    }
+                                }
+                                break;
+                            case OpenHardwareMonitor.Hardware.SensorType.SmallData:
+                                break;
+                            case OpenHardwareMonitor.Hardware.SensorType.Throughput:
                                 break;
                             default:
                                 break;
                         }
-
-                        // searching for all sensors and adding data to listbox
-                        foreach (OpenHardwareMonitor.Hardware.ISensor sensor in hw.Sensors)
-                        {
-                            switch (sensor.SensorType)
-                            {
-                                case OpenHardwareMonitor.Hardware.SensorType.Voltage:
-                                    break;
-                                case OpenHardwareMonitor.Hardware.SensorType.Clock:
-                                    break;
-                                case OpenHardwareMonitor.Hardware.SensorType.Temperature:
-                                    if (sensor.Value != null)
-                                    {
-                                        int curTemp = (int)sensor.Value;
-                                        switch (sensor.Name)
-                                        {
-                                            case "CPU Package":
-                                                cpuTemp = curTemp.ToString();
-                                                break;
-                                            case "GPU Core":
-                                                gpuTemp = curTemp.ToString();
-                                                break;
-
-                                        }
-                                    }
-                                    break;
-                                case OpenHardwareMonitor.Hardware.SensorType.Load:
-                                    if (sensor.Value != null)
-                                    {
-                                        int curLoad = (int)sensor.Value;
-                                        switch (sensor.Name)
-                                        {
-                                            case "CPU Total":
-                                                cpuLoad = curLoad.ToString();
-                                                break;
-                                            case "GPU Core":
-                                                gpuLoad = curLoad.ToString();
-                                                break;
-                                        }
-                                    }
-                                    break;
-                                case OpenHardwareMonitor.Hardware.SensorType.Fan:
-                                    break;
-                                case OpenHardwareMonitor.Hardware.SensorType.Flow:
-                                    break;
-                                case OpenHardwareMonitor.Hardware.SensorType.Control:
-                                    break;
-                                case OpenHardwareMonitor.Hardware.SensorType.Level:
-                                    break;
-                                case OpenHardwareMonitor.Hardware.SensorType.Factor:
-                                    break;
-                                case OpenHardwareMonitor.Hardware.SensorType.Power:
-                                    break;
-                                case OpenHardwareMonitor.Hardware.SensorType.Data:
-                                    if (sensor.Value != null)
-                                    {
-                                        switch (sensor.Name)
-                                        {
-                                            case "Used Memory":
-                                                decimal decimalRam = Math.Round((decimal)sensor.Value, 1);
-                                                ramUsed = decimalRam.ToString();
-                                                break;
-                                        }
-                                    }
-                                    break;
-                                case OpenHardwareMonitor.Hardware.SensorType.SmallData:
-                                    break;
-                                case OpenHardwareMonitor.Hardware.SensorType.Throughput:
-                                    break;
-                                default:
-                                    break;
-                            }
-                        }
                     }
-                    //string curSong = "";
-                    //Process[] processlist = Process.GetProcesses();
-
-                    //foreach (Process process in processlist)
-                    //{
-                    //    if (!String.IsNullOrEmpty(process.MainWindowTitle))
-                    //    {
-
-                    //        if (process.ProcessName == "AIMP3")
-                    //        {
-                    //            curSong = process.MainWindowTitle;
-                    //        }
-                    //        else if (process.ProcessName == "foobar2000" && (process.MainWindowTitle.IndexOf("[") > 0))
-                    //        {
-                    //            curSong = process.MainWindowTitle.Substring(0, process.MainWindowTitle.IndexOf("[") - 1);
-                    //        }
-                    //    }
-                    //}
-
-                    //string arduinoData = "C" + cpuTemp + "c " + cpuLoad + "%|G" + gpuTemp + "c " + gpuLoad + "%|R" + ramUsed + "G|S" + curSong + "|";
-                    string curSong = string.Empty;
-                    string arduinoData = "CPU:" + CPUName + "GPU:" + GPUName + "|" + "CT" + cpuTemp + "ct " + cpuLoad + "|G" + gpuTemp + "c " + gpuLoad + "%|R" + ramUsed + "G|S" + curSong + "|";
-                    //string arduinoData = "CPU:" + CPUName + "GPU:" + GPUName + "|" + "CT" + cpuTemp + "ct " + cpuLoad + "|G" + gpuTemp + "c " + gpuLoad + "%|R" + ramUsed + "G|";
-
-                    string[] data = new string[]
-                    {
-                    cpuLoad, //change this
-                    gpuTemp
-                    };
-
-                    SensorDataChanged?.Invoke(arduinoData, data);
-
-                    //DataQ.Enqueue(arduinoData);
-
                 }
+                //string curSong = "";
+                //Process[] processlist = Process.GetProcesses();
+
+                //foreach (Process process in processlist)
+                //{
+                //    if (!String.IsNullOrEmpty(process.MainWindowTitle))
+                //    {
+
+                //        if (process.ProcessName == "AIMP3")
+                //        {
+                //            curSong = process.MainWindowTitle;
+                //        }
+                //        else if (process.ProcessName == "foobar2000" && (process.MainWindowTitle.IndexOf("[") > 0))
+                //        {
+                //            curSong = process.MainWindowTitle.Substring(0, process.MainWindowTitle.IndexOf("[") - 1);
+                //        }
+                //    }
+                //}
+
+                //string arduinoData = "C" + cpuTemp + "c " + cpuLoad + "%|G" + gpuTemp + "c " + gpuLoad + "%|R" + ramUsed + "G|S" + curSong + "|";
+                string curSong = string.Empty;
+                string arduinoData = "CPU:" + CPUName + "GPU:" + GPUName + "|" + "CT" + cpuTemp + "ct " + cpuLoad + "|G" + gpuTemp + "c " + gpuLoad + "%|R" + ramUsed + "G|S" + curSong + "|";
+                //string arduinoData = "CPU:" + CPUName + "GPU:" + GPUName + "|" + "CT" + cpuTemp + "ct " + cpuLoad + "|G" + gpuTemp + "c " + gpuLoad + "%|R" + ramUsed + "G|";
+
+                string[] data = new string[]
+                {
+                    cpuTemp, //change this
+                    gpuTemp
+                };
+
+                SensorDataChanged?.Invoke(arduinoData, data);
+
             }
             catch (Exception)
             {
@@ -438,15 +434,12 @@ namespace APControlCentre.View
             try
             {
                 isConnected = true;
-                //string selectedPort = cboPorts.GetItemText(cboPorts.SelectedItem);
-                //port = new SerialPort(ClsCommon.gobjclsVariables.port, 9600, Parity.None, 8, StopBits.One);
-                port = new SerialPort("COM4", 9600, Parity.None, 8, StopBits.One);
+                port = ClsCommon.gobjclsVariables.port;
                 if (!port.IsOpen)
                 {
                     port.Open();
-                    tmrPollData.Start();
-                };
 
+                };
                 enableControls();
             }
             catch (UnauthorizedAccessException)
@@ -530,6 +523,74 @@ namespace APControlCentre.View
 
         }
 
+        public void SubscribeEvents()
+        {
+            try
+            {
+                tmrPollData.Tick += TmrPollData_Tick;
+                SensorDataChanged += FrmDashboard_SensorDataChanged;
+            }
+            catch (Exception)
+            {
 
+                throw;
+            }
+        }
+
+        public void UnSubscribeEvents()
+        {
+            try
+            {
+                tmrPollData.Tick -= TmrPollData_Tick;
+                SensorDataChanged -= FrmDashboard_SensorDataChanged;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public void SetDefaultValues()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Dashboard_Activated(object sender, EventArgs e)
+        {
+            try
+            {
+                if (ClsCommon.gobjclsVariables.port != null)
+                    connectToArduino();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public void ChangeIcon(ref object objPbox, EnumNewOldIndicator indicator)
+        {
+            try
+            {
+                PictureBox pbox = objPbox as PictureBox;
+                Bitmap image = null;
+
+                if (indicator.Equals(EnumNewOldIndicator.Old))
+                    image = (Bitmap)Properties.Resources.ResourceManager.GetObject("icoDashboard_small_Alt");
+                else
+                    image = (Bitmap)Properties.Resources.ResourceManager.GetObject("icoDashboard");
+
+                ClsCommon.gobjclsFunctions.ChangeNavButtonImage(ref objPbox, image, indicator);
+
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }
