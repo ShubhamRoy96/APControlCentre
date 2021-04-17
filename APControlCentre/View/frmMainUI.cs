@@ -314,5 +314,46 @@ namespace APControlCentre.View
             }
 
         }
+
+        private void btnMaximise_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (WindowState == FormWindowState.Normal)
+                {
+                    btnMaximise.BackgroundImage = (Image)Properties.Resources.ResourceManager.GetObject("icoRestore");                    
+                    WindowState = FormWindowState.Maximized;
+                }
+                else
+                {
+                    btnMaximise.BackgroundImage = (Image)Properties.Resources.ResourceManager.GetObject("icoMaxmise");
+                    WindowState = FormWindowState.Normal;
+                    
+                }
+                
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private void frmMainUI_Resize(object sender, EventArgs e)
+        {
+            try
+            {
+                if (grpContainer.Controls.Count > 0)
+                {
+                    grpContainer.Controls[0].Size = grpContainer.Size;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
     }
 }

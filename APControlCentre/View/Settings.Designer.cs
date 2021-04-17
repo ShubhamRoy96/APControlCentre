@@ -34,6 +34,7 @@
             // 
             // btnConnect
             // 
+            this.btnConnect.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.btnConnect.Font = new System.Drawing.Font("Overpass", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnConnect.Location = new System.Drawing.Point(727, 70);
             this.btnConnect.Name = "btnConnect";
@@ -45,6 +46,7 @@
             // 
             // cboPorts
             // 
+            this.cboPorts.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cboPorts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboPorts.Font = new System.Drawing.Font("Overpass", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboPorts.FormattingEnabled = true;

@@ -16,8 +16,20 @@ namespace APControlCentre.View
         public About()
         {
             InitializeComponent();
+            InitializeResources();
         }
+        private void InitializeResources()
+        {
+            try
+            {
+                this.BackColor = ClsCommon.gobjclsVariables.gcolUILight;
+            }
+            catch (Exception)
+            {
 
+                throw;
+            }
+        }
         public void ChangeIcon(ref object objPbox, EnumNewOldIndicator indicator)
         {
             try

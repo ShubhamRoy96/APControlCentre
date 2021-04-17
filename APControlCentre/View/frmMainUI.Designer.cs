@@ -35,9 +35,10 @@
             this.lblSettings = new System.Windows.Forms.Label();
             this.pctDashboard = new System.Windows.Forms.PictureBox();
             this.lblDashboard = new System.Windows.Forms.Label();
+            this.grpContainer = new System.Windows.Forms.GroupBox();
+            this.btnMaximise = new System.Windows.Forms.Button();
             this.btnMinimise = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
-            this.grpContainer = new System.Windows.Forms.GroupBox();
             this.pnlNav.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pctAbout)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pctSettings)).BeginInit();
@@ -46,6 +47,8 @@
             // 
             // pnlNav
             // 
+            this.pnlNav.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.pnlNav.BackColor = System.Drawing.Color.RoyalBlue;
             this.pnlNav.Controls.Add(this.pctAbout);
             this.pnlNav.Controls.Add(this.lblAbout);
@@ -55,7 +58,7 @@
             this.pnlNav.Controls.Add(this.lblDashboard);
             this.pnlNav.Location = new System.Drawing.Point(0, 0);
             this.pnlNav.Name = "pnlNav";
-            this.pnlNav.Size = new System.Drawing.Size(168, 500);
+            this.pnlNav.Size = new System.Drawing.Size(168, 602);
             this.pnlNav.TabIndex = 0;
             // 
             // pctAbout
@@ -133,6 +136,37 @@
             this.lblDashboard.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lblDashboard.Click += new System.EventHandler(this.BtnPage_Click);
             // 
+            // grpContainer
+            // 
+            this.grpContainer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpContainer.BackColor = System.Drawing.Color.Transparent;
+            this.grpContainer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.grpContainer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.grpContainer.Location = new System.Drawing.Point(168, 32);
+            this.grpContainer.Name = "grpContainer";
+            this.grpContainer.Size = new System.Drawing.Size(834, 602);
+            this.grpContainer.TabIndex = 1;
+            this.grpContainer.TabStop = false;
+            // 
+            // btnMaximise
+            // 
+            this.btnMaximise.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnMaximise.BackColor = System.Drawing.Color.GhostWhite;
+            this.btnMaximise.BackgroundImage = global::APControlCentre.Properties.Resources.icoMaxmise;
+            this.btnMaximise.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnMaximise.FlatAppearance.BorderSize = 0;
+            this.btnMaximise.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMaximise.ForeColor = System.Drawing.Color.Black;
+            this.btnMaximise.Location = new System.Drawing.Point(929, 0);
+            this.btnMaximise.Name = "btnMaximise";
+            this.btnMaximise.Size = new System.Drawing.Size(39, 35);
+            this.btnMaximise.TabIndex = 2;
+            this.btnMaximise.TabStop = false;
+            this.btnMaximise.UseVisualStyleBackColor = true;
+            this.btnMaximise.Click += new System.EventHandler(this.btnMaximise_Click);
+            // 
             // btnMinimise
             // 
             this.btnMinimise.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -142,7 +176,7 @@
             this.btnMinimise.FlatAppearance.BorderSize = 0;
             this.btnMinimise.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMinimise.ForeColor = System.Drawing.Color.Black;
-            this.btnMinimise.Location = new System.Drawing.Point(925, 0);
+            this.btnMinimise.Location = new System.Drawing.Point(896, 0);
             this.btnMinimise.Name = "btnMinimise";
             this.btnMinimise.Size = new System.Drawing.Size(39, 35);
             this.btnMinimise.TabIndex = 0;
@@ -159,7 +193,7 @@
             this.btnExit.FlatAppearance.BorderSize = 0;
             this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExit.ForeColor = System.Drawing.Color.Black;
-            this.btnExit.Location = new System.Drawing.Point(961, 0);
+            this.btnExit.Location = new System.Drawing.Point(963, 0);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(39, 35);
             this.btnExit.TabIndex = 0;
@@ -169,32 +203,24 @@
             this.btnExit.MouseEnter += new System.EventHandler(this.btnExit_MouseEnter);
             this.btnExit.MouseLeave += new System.EventHandler(this.btnExit_MouseLeave);
             // 
-            // grpContainer
-            // 
-            this.grpContainer.BackColor = System.Drawing.Color.Transparent;
-            this.grpContainer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.grpContainer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.grpContainer.Location = new System.Drawing.Point(168, 32);
-            this.grpContainer.Name = "grpContainer";
-            this.grpContainer.Size = new System.Drawing.Size(832, 468);
-            this.grpContainer.TabIndex = 1;
-            this.grpContainer.TabStop = false;
-            // 
             // frmMainUI
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.GhostWhite;
-            this.ClientSize = new System.Drawing.Size(1000, 500);
+            this.ClientSize = new System.Drawing.Size(1000, 600);
             this.ControlBox = false;
+            this.Controls.Add(this.btnMaximise);
             this.Controls.Add(this.grpContainer);
             this.Controls.Add(this.btnMinimise);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.pnlNav);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.MinimumSize = new System.Drawing.Size(1000, 600);
             this.Name = "frmMainUI";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMainUI_FormClosing);
             this.Load += new System.EventHandler(this.frmMain_Load);
+            this.Resize += new System.EventHandler(this.frmMainUI_Resize);
             this.pnlNav.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pctAbout)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pctSettings)).EndInit();
@@ -215,6 +241,7 @@
         private System.Windows.Forms.PictureBox pctAbout;
         private System.Windows.Forms.Label lblAbout;
         private System.Windows.Forms.GroupBox grpContainer;
+        private System.Windows.Forms.Button btnMaximise;
     }
 }
 

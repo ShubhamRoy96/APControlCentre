@@ -11,7 +11,8 @@ namespace APControlCentre.Model
     }
     public class ChartData
     {
-        public System.DateTime DateTime { get; set; }
-        public double Value { get; set; }
+        public DateTime DateData { get; set; }
+        
+        public double Value { get; set; }        
     }
 }

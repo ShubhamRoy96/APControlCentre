@@ -25,6 +25,8 @@ namespace APControlCentre.View
         private delegate void SensorDataChangeEventHandler(string arduinoString, params string[] data);
         private event SensorDataChangeEventHandler SensorDataChanged;
 
+        private delegate void TelemetryDataChangeEventHandler(params string[] data);
+        private event TelemetryDataChangeEventHandler TelemetryDataChanged;
 
         bool isConnected = false;
 
@@ -54,6 +56,14 @@ namespace APControlCentre.View
             try
             {
                 var now = System.DateTime.Now;
+
+                lblActualCPUName.Text = data[0].ToString();
+                lblActCPUTemp.Text = data[1].ToString();
+                lblActualCPUUsage.Text = data[2].ToString();
+
+                lblActGPUName.Text = data[3].ToString();
+                lblActGPUTemp.Text = data[4].ToString();
+                lblActGPUUsage.Text = data[5].ToString();
 
                 await Task.Run(() => UpdateGPUData(data, now));
                 await Task.Run(() => UpdateCPUChart(data, now));
@@ -87,12 +97,12 @@ namespace APControlCentre.View
         }
         private void UpdateGPUData(string[] data, DateTime now)
         {
-            bool isGPUDataAvailable = double.TryParse(data[1], out double gputempData);
+            bool isGPUDataAvailable = double.TryParse(data[4], out double gputempData);
             if (isGPUDataAvailable)
             {
                 GPUChartValues.Add(new ChartData
                 {
-                    DateTime = now,
+                    DateData = now,
 
                     Value = gputempData
                 });
@@ -101,16 +111,19 @@ namespace APControlCentre.View
 
         private void UpdateCPUChart(string[] data, DateTime now)
         {
-            bool isCPUDataAvailable = double.TryParse(data[0], out double cputempData);
+            bool isCPUDataAvailable = double.TryParse(data[1], out double cputempData);
             if (isCPUDataAvailable)
             {
                 CPUChartValues.Add(new ChartData
                 {
-                    DateTime = now,
+                    DateData = now,
 
                     Value = cputempData
                 });
             }
+
+            TelemetryDataChanged?.Invoke(data);
+            
         }
 
         private void TmrPollData_Tick(object sender, EventArgs e)
@@ -144,7 +157,7 @@ namespace APControlCentre.View
             try
             {
                 var mapper = Mappers.Xy<ChartData>()
-                                    .X(model => model.DateTime.Ticks)   //use DateTime.Ticks as X
+                                    .X(model => model.DateData.Ticks)   //use DateTime.Ticks as X
                                     .Y(model => model.Value);           //use the value property as Y
 
                 //lets save the mapper globally.
@@ -190,7 +203,7 @@ namespace APControlCentre.View
                 new LineSeries
                 {
                     Values = GPUChartValues,
-                    PointGeometrySize = 10,
+                    PointGeometrySize = 0,
                     Stroke = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 71, 144)),
                     StrokeThickness = 1
                 }
@@ -203,6 +216,15 @@ namespace APControlCentre.View
                     {
                         Step = TimeSpan.FromSeconds(1).Ticks
                     }
+                });
+                chrtGPU.AxisY.Add(new Axis
+                {
+                    DisableAnimations = true,
+                    //LabelFormatter = value => new System.DateTime((long)value).ToString("mm:ss"),
+                    //Separator = new Separator
+                    //{
+                    //    Step = TimeSpan.FromSeconds(1).Ticks
+                    //}
                 });
                 SetAxisLimits(System.DateTime.Now);
             }
@@ -393,8 +415,12 @@ namespace APControlCentre.View
 
                 string[] data = new string[]
                 {
-                    cpuTemp, //change this
-                    gpuTemp
+                    CPUName,
+                    cpuTemp,
+                    cpuLoad,
+                    GPUName,
+                    gpuTemp,
+                    gpuLoad
                 };
 
                 SensorDataChanged?.Invoke(arduinoData, data);
@@ -520,6 +546,8 @@ namespace APControlCentre.View
             //chrtGPU.AxisX[0].MaxValue = now.Ticks + TimeSpan.FromSeconds(0).Ticks; // lets force the axis to be 100ms ahead
             chrtGPU.AxisX[0].MaxValue = now.Ticks;
             chrtGPU.AxisX[0].MinValue = now.Ticks - TimeSpan.FromSeconds(8).Ticks; //we only care about the last 8 seconds 
+            chrtGPU.AxisY[0].MaxValue = 100;
+            chrtGPU.AxisY[0].MinValue = 0;
 
         }
 
@@ -529,6 +557,20 @@ namespace APControlCentre.View
             {
                 tmrPollData.Tick += TmrPollData_Tick;
                 SensorDataChanged += FrmDashboard_SensorDataChanged;
+                TelemetryDataChanged += Dashboard_TelemetryDataChanged;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private void Dashboard_TelemetryDataChanged(params string[] data)
+        {
+            try
+            {
+               
             }
             catch (Exception)
             {
@@ -592,5 +634,6 @@ namespace APControlCentre.View
                 throw;
             }
         }
+
     }
 }

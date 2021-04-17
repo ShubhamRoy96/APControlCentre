@@ -118,8 +118,23 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="icoMinimise" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icoMinimise.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icoDashboard" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icoDashboard.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icoAbout_small_Alt" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icoAbout_small_Alt.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icoSettings_small" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icoSettings_small.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icoSettings_small_Alt" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icoSettings_small_Alt.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icoAbout_small" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icoAbout_small.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icoMaxmise" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icoMaxmise.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icoCancel" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icoCancel.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -127,31 +142,22 @@
   <data name="icoSettings" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icoSettings.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icoDashboard" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icoDashboard.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icoDashboard_small" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icoDashboard_small.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icoMinimise" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icoMinimise.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icoSettingsAlt" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icoSettingsAlt.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icoDashboard_small" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icoDashboard_small.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="icoSettings_small" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icoSettings_small.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icoDashboard_small_Alt" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icoDashboard_small_Alt.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icoAbout" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icoAbout.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icoAbout_small" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icoAbout_small.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="icoAbout_small_Alt" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icoAbout_small_Alt.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="icoDashboard_small_Alt" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icoDashboard_small_Alt.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="icoSettings_small_Alt" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icoSettings_small_Alt.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icoRestore" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icoRestore.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
