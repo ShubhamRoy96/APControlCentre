@@ -410,8 +410,9 @@ namespace APControlCentre.View
 
                 //string arduinoData = "C" + cpuTemp + "c " + cpuLoad + "%|G" + gpuTemp + "c " + gpuLoad + "%|R" + ramUsed + "G|S" + curSong + "|";
                 string curSong = string.Empty;
-                string arduinoData = "CPU:" + CPUName + "GPU:" + GPUName + "|" + "CT" + cpuTemp + "ct " + cpuLoad + "|G" + gpuTemp + "c " + gpuLoad + "%|R" + ramUsed + "G|S" + curSong + "|";
+                //string arduinoData = "CPU:" + CPUName + "GPU:" + GPUName + "|" + "CT" + cpuTemp + "ct " + cpuLoad + "|G" + gpuTemp + "c " + gpuLoad + "%|R" + ramUsed + "G|S" + curSong + "|";
                 //string arduinoData = "CPU:" + CPUName + "GPU:" + GPUName + "|" + "CT" + cpuTemp + "ct " + cpuLoad + "|G" + gpuTemp + "c " + gpuLoad + "%|R" + ramUsed + "G|";
+                string arduinoData = "CPU:" + CPUName + "GPU:" + GPUName + "CT:" + cpuTemp + "CL:" + cpuLoad + "GT:" + gpuTemp + "GL:" + gpuLoad + "RAM:" + ramUsed + "SONG:" + curSong + "|";
 
                 string[] data = new string[]
                 {
